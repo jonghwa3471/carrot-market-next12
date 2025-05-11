@@ -2,24 +2,28 @@ import type { NextPage } from "next";
 
 const Home: NextPage = () => {
   return (
-    <div className="grid min-h-screen gap-10 bg-slate-400 px-20 py-20 lg:grid-cols-2 xl:grid-cols-3 xl:place-content-center">
-      <div className="flex flex-col justify-between rounded-3xl bg-white p-6 shadow-xl">
-        <span className="text-3xl font-semibold">Select Item</span>
+    <div className="dark grid min-h-screen gap-10 bg-slate-400 px-20 py-20 lg:grid-cols-2 xl:grid-cols-3 xl:place-content-center">
+      <div className="flex flex-col justify-between rounded-3xl bg-white p-6 shadow-xl dark:bg-black">
+        <span className="text-3xl font-semibold dark:text-white">
+          Select Item
+        </span>
         <ul>
           <div className="my-2 flex justify-between">
-            <span className="text-gray-500">Grey Chair</span>
-            <span className="font-semibold">$19</span>
+            <span className="text-gray-500 dark:text-gray-100">Grey Chair</span>
+            <span className="font-semibold dark:text-white">$19</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-500">Tooly Table</span>
-            <span className="font-semibold">$80</span>
+            <span className="text-gray-500 dark:text-gray-100">
+              Tooly Table
+            </span>
+            <span className="font-semibold dark:text-white">$80</span>
           </div>
         </ul>
         <div className="mt-2 flex justify-between border-t-2 border-dashed pt-2">
           <span>Total</span>
           <span className="font-semibold">$99</span>
         </div>
-        <button className="mx-auto mt-5 block w-1/2 rounded-xl bg-blue-500 p-3 text-center text-white hover:bg-teal-500 hover:text-black focus:bg-red-500 active:bg-yellow-500">
+        <button className="mx-auto mt-5 block w-1/2 rounded-xl bg-blue-500 p-3 text-center text-white transition-colors hover:bg-teal-500 hover:text-black focus:bg-red-500 active:bg-yellow-500 dark:border dark:border-white dark:bg-black dark:hover:bg-white">
           Checkout
         </button>
       </div>
