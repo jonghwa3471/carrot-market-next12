@@ -37,7 +37,7 @@ const Home: NextPage = () => {
               <span className="text-sm text-gray-500">Orders</span>
               <span className="font-medium">340</span>
             </div>
-            <div className="h-24 w-24 rounded-full bg-zinc-300 transition-colors group-hover:bg-red-400" />
+            <div className="h-24 w-24 rounded-full bg-zinc-300 bg-[url('/vercel.svg')] bg-[length:100px_100px] bg-center transition-colors group-hover:bg-red-400" />
             <div className="flex flex-col items-center">
               <span className="text-sm text-gray-500">Spent</span>
               <span className="font-medium">$2,310</span>
