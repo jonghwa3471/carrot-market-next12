@@ -17,7 +17,7 @@ export default function Enter() {
           <div className="mt-8 grid w-full grid-cols-2 border-b">
             <button
               className={cls(
-                "border-b-2 pb-4 font-medium",
+                "border-b-2 pb-4 font-medium transition-colors",
                 method === "email"
                   ? "border-orange-400 text-orange-400"
                   : "border-transparent text-gray-500",
@@ -28,7 +28,7 @@ export default function Enter() {
             </button>
             <button
               className={cls(
-                "border-b-2 pb-4 font-medium",
+                "border-b-2 pb-4 font-medium transition-colors",
                 method === "phone"
                   ? "border-orange-400 text-orange-400"
                   : "border-transparent text-gray-500",
@@ -47,7 +47,7 @@ export default function Enter() {
           <div className="mt-1">
             {method === "email" ? (
               <input
-                className="w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-orange-500 focus:outline-none focus:ring-orange-500"
+                className="w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm transition-colors focus:border-orange-500 focus:outline-none focus:ring-orange-500"
                 type="email"
                 required
               />
@@ -59,13 +59,13 @@ export default function Enter() {
                 </span>
                 <input
                   type="number"
-                  className="w-full appearance-none rounded-md rounded-l-none border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-orange-500 focus:outline-none focus:ring-orange-500"
+                  className="w-full appearance-none rounded-md rounded-l-none border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm transition-colors focus:border-orange-500 focus:outline-none focus:ring-orange-500"
                   required
                 />
               </div>
             ) : null}
           </div>
-          <button className="mt-5 rounded-md border border-transparent bg-orange-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
+          <button className="mt-5 rounded-md border border-transparent bg-orange-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
             {method === "email" ? "Get login link" : null}
             {method === "phone" ? "Get one-time password" : null}
           </button>
