@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 const Upload: NextPage = () => {
   return (
-    <div className="px-4 py-16">
+    <div className="px-4 py-10">
       <div>
         <label className="flex h-48 w-full cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-gray-300 text-gray-600 transition-colors hover:border-orange-500 hover:text-orange-500">
           <svg
@@ -48,7 +48,7 @@ const Upload: NextPage = () => {
           Description
         </label>
         <textarea
-          className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500"
+          className="mt-1 w-full resize-none rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500"
           rows={4}
         />
       </div>

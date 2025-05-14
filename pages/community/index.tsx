@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 
 const Community: NextPage = () => {
   return (
-    <div className="space-y-8 px-4 py-16">
+    <div className="space-y-8 py-10">
       {Array(6)
         .fill(1)
         .map((_, i) => (
