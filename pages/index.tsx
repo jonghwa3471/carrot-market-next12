@@ -3,7 +3,7 @@ import Layout from "../components/layout";
 
 const Home: NextPage = () => {
   return (
-    <Layout title="Home" hasTabBar>
+    <Layout title="홈" hasTabBar>
       <div className="flex flex-col space-y-5">
         {Array(10)
           .fill(1)
