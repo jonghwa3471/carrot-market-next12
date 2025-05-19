@@ -8,9 +8,9 @@ const Live: NextPage = () => {
         .map((_, i) => (
           <div className="px-4 pt-4" key={i}>
             <div className="aspect-video w-full rounded-md bg-slate-300 shadow-sm" />
-            <h3 className="mt-2 text-lg text-gray-700">
-              Let&apos;s try potatos
-            </h3>
+            <h1 className="mt-2 text-2xl font-bold text-gray-900">
+              Galaxy S50
+            </h1>
           </div>
         ))}
       <button className="fixed bottom-24 right-5 cursor-pointer rounded-full border-transparent bg-orange-400 p-4 text-white shadow-xl transition-colors hover:bg-orange-500">
