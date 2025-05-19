@@ -3,9 +3,9 @@ import Layout from "../../components/layout";
 
 const Profile: NextPage = () => {
   return (
-    <Layout title="내 정보" hasTabBar>
-      <div className="px-4 py-10">
-        <div className="flex items-center space-x-3">
+    <Layout hasTabBar title="나의 캐럿">
+      <div className="px-4">
+        <div className="mt-4 flex items-center space-x-3">
           <div className="h-16 w-16 rounded-full bg-slate-500" />
           <div className="flex flex-col">
             <span className="font-medium text-gray-900">Steve Jebs</span>
@@ -14,7 +14,7 @@ const Profile: NextPage = () => {
         </div>
         <div className="mt-10 flex justify-around">
           <div className="flex flex-col items-center">
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-500 text-white">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-400 text-white">
               <svg
                 className="h-6 w-6"
                 fill="none"
@@ -35,7 +35,7 @@ const Profile: NextPage = () => {
             </span>
           </div>
           <div className="flex flex-col items-center">
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-500 text-white">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-400 text-white">
               <svg
                 className="h-6 w-6"
                 fill="none"
@@ -56,7 +56,7 @@ const Profile: NextPage = () => {
             </span>
           </div>
           <div className="flex flex-col items-center">
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-500 text-white">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-400 text-white">
               <svg
                 className="h-6 w-6"
                 fill="none"
@@ -79,7 +79,7 @@ const Profile: NextPage = () => {
         </div>
         <div className="mt-12">
           <div className="flex items-center space-x-4">
-            <div className="h-12 w-12 rounded-full bg-slate-400" />
+            <div className="h-12 w-12 rounded-full bg-slate-500" />
             <div>
               <h4 className="text-sm font-bold text-gray-800">니꼬</h4>
               <div className="flex items-center">

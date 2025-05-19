@@ -1,9 +1,10 @@
 import type { NextPage } from "next";
+
 const Upload: NextPage = () => {
   return (
     <div className="space-y-5 px-4 py-10">
       <div>
-        <label className="flex h-48 w-full cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-gray-300 text-gray-600 transition-colors hover:border-orange-500 hover:text-orange-500">
+        <label className="flex h-48 w-full cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-gray-300 text-gray-600 hover:border-orange-500 hover:text-orange-500">
           <svg
             className="h-12 w-12"
             stroke="currentColor"
@@ -50,7 +51,7 @@ const Upload: NextPage = () => {
           </div>
           <input
             id="price"
-            className="w-full appearance-none rounded-md border border-gray-300 px-3 py-2 pl-7 placeholder-gray-400 shadow-sm transition-colors focus:border-orange-500 focus:outline-none focus:ring-orange-500"
+            className="w-full appearance-none rounded-md border border-gray-300 px-3 py-2 pl-7 placeholder-gray-400 shadow-sm focus:border-orange-500 focus:outline-none focus:ring-orange-500"
             type="text"
             placeholder="0.00"
           />
@@ -66,9 +67,10 @@ const Upload: NextPage = () => {
         >
           Description
         </label>
+
         <textarea
           id="description"
-          className="mt-1 w-full resize-none rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500"
+          className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500"
           rows={4}
         />
       </div>
@@ -78,4 +80,5 @@ const Upload: NextPage = () => {
     </div>
   );
 };
+
 export default Upload;

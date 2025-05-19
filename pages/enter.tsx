@@ -1,23 +1,24 @@
+import type { NextPage } from "next";
 import { useState } from "react";
 import { cls } from "../libs/utils";
 
-export default function Enter() {
+const Enter: NextPage = () => {
   const [method, setMethod] = useState<"email" | "phone">("email");
   const onEmailClick = () => setMethod("email");
   const onPhoneClick = () => setMethod("phone");
   return (
     <div className="mt-16 px-4">
       <h3 className="text-center text-3xl font-bold">Enter to Carrot</h3>
-      <div className="mt-8">
+      <div className="mt-12">
         <div className="flex flex-col items-center">
           <h5 className="text-sm font-medium text-gray-500">Enter using:</h5>
           <div className="mt-8 grid w-full grid-cols-2 border-b">
             <button
               className={cls(
-                "border-b-2 pb-4 font-medium transition-colors",
+                "border-b-2 pb-4 text-sm font-medium",
                 method === "email"
-                  ? "border-orange-400 text-orange-400"
-                  : "border-transparent text-gray-500",
+                  ? "border-orange-500 text-orange-400"
+                  : "border-transparent text-gray-500 hover:text-gray-400",
               )}
               onClick={onEmailClick}
             >
@@ -25,10 +26,10 @@ export default function Enter() {
             </button>
             <button
               className={cls(
-                "border-b-2 pb-4 font-medium transition-colors",
+                "border-b-2 pb-4 text-sm font-medium",
                 method === "phone"
-                  ? "border-orange-400 text-orange-400"
-                  : "border-transparent text-gray-500",
+                  ? "border-orange-500 text-orange-400"
+                  : "border-transparent text-gray-500 hover:text-gray-400",
               )}
               onClick={onPhoneClick}
             >
@@ -45,8 +46,8 @@ export default function Enter() {
             {method === "email" ? (
               <input
                 id="input"
-                className="w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm transition-colors focus:border-orange-500 focus:outline-none focus:ring-orange-500"
                 type="email"
+                className="w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-orange-500 focus:outline-none focus:ring-orange-500"
                 required
               />
             ) : null}
@@ -58,13 +59,13 @@ export default function Enter() {
                 <input
                   id="input"
                   type="number"
-                  className="w-full appearance-none rounded-md rounded-l-none border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm transition-colors focus:border-orange-500 focus:outline-none focus:ring-orange-500"
+                  className="w-full appearance-none rounded-md rounded-l-none border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-orange-500 focus:outline-none focus:ring-orange-500"
                   required
                 />
               </div>
             ) : null}
           </div>
-          <button className="mt-5 rounded-md border border-transparent bg-orange-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
+          <button className="mt-5 rounded-md border border-transparent bg-orange-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
             {method === "email" ? "Get login link" : null}
             {method === "phone" ? "Get one-time password" : null}
           </button>
@@ -108,4 +109,5 @@ export default function Enter() {
       </div>
     </div>
   );
-}
+};
+export default Enter;
