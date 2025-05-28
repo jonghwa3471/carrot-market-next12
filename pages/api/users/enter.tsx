@@ -9,6 +9,6 @@ export default async function handler(
     res.status(405).end();
     // 405 means current method is not allowed
   }
-  console.log(req.body.email);
+  console.log(req.body);
   res.status(200).end();
 }
