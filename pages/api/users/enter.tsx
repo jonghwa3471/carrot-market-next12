@@ -4,9 +4,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 import withHandler, { ResponseType } from "@libs/server/withHandler";
 import client from "@libs/server/client";
 
-mail.setApiKey(process.env.SENDGRID_KEY!);
+/* mail.setApiKey(process.env.SENDGRID_KEY!);
 
-const twilioClient = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
+const twilioClient = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN); */
 
 async function handler(
   req: NextApiRequest,
@@ -16,7 +16,7 @@ async function handler(
   const user = phone ? { phone: +phone } : email ? { email } : null;
   if (!user) return res.status(400).json({ ok: false });
   const payload = Math.floor(100000 + Math.random() * 900000) + "";
-  const token = await client.token.create({
+  /*   const token = await client.token.create({
     data: {
       payload,
       user: {
@@ -31,7 +31,7 @@ async function handler(
         },
       },
     },
-  });
+  }); */
   /*   if (email) {
     user = await client.user.findUnique({
       where: {
@@ -68,7 +68,7 @@ async function handler(
     }
     console.log(user);
   } */
-  if (phone) {
+  /*   if (phone) {
     const message = await twilioClient.messages.create({
       messagingServiceSid: process.env.TWILIO_SID,
       to: process.env.MY_PHONE!,
@@ -83,7 +83,7 @@ async function handler(
       text: `Your token is ${payload}`,
       html: `<stong>Your token is ${payload}</strong>`,
     });
-  }
+  } */
   return res.json({
     ok: true,
   });
