@@ -7,15 +7,23 @@ async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseType>,
 ) {
-  const profile = await client.user.findUnique({
+  /* const profile = await client.user.findUnique({
     where: {
       id: req.session.user?.id,
     },
-  });
+  }); */
   res.json({
     ok: true,
-    profile,
+    profile: {
+      id: 9,
+      phone: "12345",
+      email: null,
+      name: "Anonymous",
+      avatar: null,
+      createdAt: "2022-01-26T08:24:50.545z",
+      updatedAt: "2022-01-26T08:24:50.546z",
+    },
   });
 }
 
-export default withApiSession(withHandler("GET", handler));
+export default withApiSession(withHandler({ method: "GET", handler }));
