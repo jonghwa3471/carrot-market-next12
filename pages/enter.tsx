@@ -47,7 +47,7 @@ const Enter: NextPage = () => {
     confirmToken(validForm);
   };
   const router = useRouter();
-  const user = useUser();
+  const { user } = useUser();
   useEffect(() => {
     if (tokenData?.ok) {
       router.push("/");
