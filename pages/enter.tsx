@@ -6,6 +6,7 @@ import { cls } from "@libs/client/utils";
 import { useForm } from "react-hook-form";
 import useMutation from "@libs/client/useMutation";
 import { useRouter } from "next/router";
+import useUser from "@libs/client/useUser";
 
 interface EnterForm {
   email?: string;
@@ -46,11 +47,16 @@ const Enter: NextPage = () => {
     confirmToken(validForm);
   };
   const router = useRouter();
+  const user = useUser();
   useEffect(() => {
     if (tokenData?.ok) {
       router.push("/");
     }
-  }, [tokenData, router]);
+    if (user) {
+      router.push("/");
+    }
+  }, [tokenData, router, user]);
+
   return (
     <div className="mt-16 px-4">
       <h3 className="text-center text-3xl font-bold">Enter to Carrot</h3>
