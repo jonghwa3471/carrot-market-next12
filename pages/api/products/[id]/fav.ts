@@ -12,7 +12,7 @@ async function handler(
     session: { user },
   } = req;
   if (id) {
-    const alreadyExists = await client.fav.findFirst({
+    /*     const alreadyExists = await client.fav.findFirst({
       where: {
         productId: +id,
         userId: user?.id,
@@ -39,7 +39,7 @@ async function handler(
           },
         },
       });
-    }
+    } */
     res.json({ ok: true });
   }
 }

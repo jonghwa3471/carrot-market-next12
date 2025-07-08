@@ -13,7 +13,7 @@ async function handler(
       {
         id: 1,
         name: "상품1",
-        price: "100$",
+        price: "100",
         description: "상품 예시111",
         image: "xx",
         createdAt: "2025-01-26T08:24:50.545z",
@@ -31,7 +31,7 @@ async function handler(
       {
         id: 2,
         name: "상품2",
-        price: "200$",
+        price: "200",
         description: "상품 예시222",
         image: "xx",
         createdAt: "2025-01-26T08:24:50.545z",

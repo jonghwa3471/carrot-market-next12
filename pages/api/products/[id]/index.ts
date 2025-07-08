@@ -7,7 +7,10 @@ async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseType>,
 ) {
-  const { id } = req.query;
+  const {
+    query: { id },
+    session: { user },
+  } = req;
   if (id) {
     /*     const product = await client.product.findUnique({
       where: {
@@ -24,9 +27,9 @@ async function handler(
       },
     }); */
     const product = {
-      id,
+      id: +id,
       name: `상품${id}`,
-      price: "100$",
+      price: "100",
       description: `상품 예시${id}`,
       image: "xx",
       createdAt: "2025-01-26T08:24:50.545z",
@@ -60,7 +63,7 @@ async function handler(
       {
         id: 3,
         name: "상품3",
-        price: "300$",
+        price: "300",
         description: "상품 예시333",
         image: "xx",
         createdAt: "2025-01-26T08:24:50.545z",
@@ -78,7 +81,7 @@ async function handler(
       {
         id: 4,
         name: "상품4",
-        price: "400$",
+        price: "400",
         description: "상품 예시444",
         image: "xx",
         createdAt: "2025-01-26T08:24:50.545z",
@@ -96,7 +99,7 @@ async function handler(
       {
         id: 5,
         name: "상품5",
-        price: "300$",
+        price: "300",
         description: "상품 예시555",
         image: "xx",
         createdAt: "2025-01-26T08:24:50.545z",
@@ -112,7 +115,19 @@ async function handler(
         },
       },
     ];
-    res.json({ ok: true, product, relatedProducts });
+    /*     const isLiked = Boolean(
+      await client.fav.findFirst({
+        where: {
+          productId: product?.id,
+          userId: user?.id,
+        },
+        select: {
+          id: true,
+        },
+      }),
+    ); */
+    const isLiked = true;
+    res.json({ ok: true, product, isLiked, relatedProducts });
   }
 }
 
