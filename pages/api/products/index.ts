@@ -8,7 +8,15 @@ async function handler(
   res: NextApiResponse<ResponseType>,
 ) {
   if (req.method === "GET") {
-    // const products = await client.product.findMany({});
+    /*     const products = await client.product.findMany({
+      include: {
+        _count: {
+          select: {
+            favs: true,
+          },
+        },
+      },
+    }); */
     const products = [
       {
         id: 1,
@@ -27,6 +35,9 @@ async function handler(
           createdAt: "2022-01-26T08:24:50.545z",
           updatedAt: "2022-01-26T08:24:50.546z",
         },
+        _count: {
+          favs: 7,
+        },
       },
       {
         id: 2,
@@ -44,6 +55,9 @@ async function handler(
           avatar: null,
           createdAt: "2022-01-26T08:24:50.545z",
           updatedAt: "2022-01-26T08:24:50.546z",
+        },
+        _count: {
+          favs: 12,
         },
       },
     ];
