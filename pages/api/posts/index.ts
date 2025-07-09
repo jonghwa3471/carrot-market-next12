@@ -32,15 +32,6 @@ async function handler(
   res.json({
     ok: true,
     post,
-    profile: {
-      id: 9,
-      phone: "12345",
-      email: null,
-      name: "Anonymous",
-      avatar: null,
-      createdAt: "2022-01-26T08:24:50.545z",
-      updatedAt: "2022-01-26T08:24:50.546z",
-    },
   });
 }
 
