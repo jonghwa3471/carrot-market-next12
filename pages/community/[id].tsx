@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { Answer, Post, User } from "@prisma/client";
 import Link from "next/link";
+import useMutation from "@libs/client/useMutation";
+import { cls } from "@libs/client/utils";
 
 interface AnswerWithUser extends Answer {
   user: User;
@@ -22,13 +24,36 @@ interface PostWithUser extends Post {
 interface CommunityPostResponse {
   ok: boolean;
   post: PostWithUser;
+  isWondering: boolean;
 }
 
 const CommunityPostDetail: NextPage = () => {
   const router = useRouter();
-  const { data, error } = useSWR<CommunityPostResponse>(
+  const { data, mutate } = useSWR<CommunityPostResponse>(
     router.query.id ? `/api/posts/${router.query.id}` : null,
   );
+  const [wonder] = useMutation(`/api/posts/${router.query.id}/wonder`);
+  const onWonderClick = () => {
+    if (!data) return;
+    mutate(
+      {
+        ...data,
+        post: {
+          ...data?.post,
+          _count: {
+            ...data?.post._count,
+            wonderings: data.isWondering
+              ? data?.post._count.wonderings - 1
+              : data.post._count.wonderings + 1,
+          },
+        },
+        isWondering: !data.isWondering,
+      },
+      false,
+    );
+    wonder({});
+  };
+
   return (
     <Layout canGoBack>
       <div>
@@ -54,7 +79,13 @@ const CommunityPostDetail: NextPage = () => {
             {data?.post?.question}
           </div>
           <div className="mt-3 flex w-full space-x-5 border-b-[2px] border-t px-4 py-2.5 text-gray-700">
-            <span className="flex items-center space-x-2 text-sm">
+            <button
+              onClick={onWonderClick}
+              className={cls(
+                "flex items-center space-x-2 text-sm",
+                data?.isWondering ? "text-teal-400" : "",
+              )}
+            >
               <svg
                 className="h-4 w-4"
                 fill="none"
@@ -70,7 +101,7 @@ const CommunityPostDetail: NextPage = () => {
                 ></path>
               </svg>
               <span>궁금해요 {data?.post._count.wonderings}</span>
-            </span>
+            </button>
             <span className="flex items-center space-x-2 text-sm">
               <svg
                 className="h-4 w-4"

@@ -45,6 +45,17 @@ async function handler(
         },
       },
     }); */
+    /*     const isWondering = Boolean(
+      await client.wondering.findFirst({
+        where: {
+          postId: +id,
+          userId: user?.id,
+        },
+        select: {
+          id: true,
+        },
+      }),
+    ); */
   }
   const post = {
     id: 1,
@@ -87,9 +98,11 @@ async function handler(
       },
     ],
   };
+  const isWondering = false;
   res.json({
     ok: true,
     post,
+    isWondering,
   });
 }
 
