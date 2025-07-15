@@ -8,20 +8,22 @@ async function handler(
   res: NextApiResponse<ResponseType>,
 ) {
   const {
-    body: { question },
+    body: { question, latitude, longitude },
     session: { user },
   } = req;
   if (req.method === "POST") {
-    /*   const post = await client.post.create({
-    data: {
-      question,
-      user: {
-        connect: {
-          id: user?.id,
+    /*     const post = await client.post.create({
+      data: {
+        question,
+        latitude,
+        longitude,
+        user: {
+          connect: {
+            id: user?.id,
+          },
         },
       },
-    },
-  }); */
+    }); */
     const post = {
       id: 1,
       createdAt: "2022-01-26T08:24:50.545z",
@@ -29,6 +31,8 @@ async function handler(
       user: user,
       userId: user?.id,
       question,
+      latitude,
+      longitude,
     };
     res.json({
       ok: true,
