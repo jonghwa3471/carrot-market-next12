@@ -15,7 +15,15 @@ async function handler(
       userId: user?.id,
     },
     include: {
-      product: true,
+      product: {
+        include: {
+          _count: {
+            select: {
+              favs: true,
+            },
+          },
+        },
+      },
     },
   }); */
   const sales = [
@@ -36,6 +44,9 @@ async function handler(
         userId: 7,
         createdAt: "2025-01-26T08:24:50.545z",
         updatedAt: "2025-01-26T08:24:50.546z",
+        _count: {
+          favs: 5,
+        },
       },
       productId: 1,
       createdAt: "2025-01-26T08:24:50.545z",
@@ -50,7 +61,7 @@ async function handler(
       },
       userId: 7,
       product: {
-        id: 1,
+        id: 2,
         name: "상품2",
         price: "200",
         description: "상품 예시222",
@@ -58,6 +69,9 @@ async function handler(
         userId: 7,
         createdAt: "2025-01-26T08:24:50.545z",
         updatedAt: "2025-01-26T08:24:50.546z",
+        _count: {
+          favs: 5,
+        },
       },
       productId: 1,
       createdAt: "2025-01-26T08:24:50.545z",

@@ -15,7 +15,15 @@ async function handler(
       userId: user?.id,
     },
     include: {
-      product: true,
+      product: {
+        include: {
+          _count: {
+            select: {
+              favs: true,
+            },
+          },
+        },
+      },
     },
   }); */
   const favs = [
@@ -36,6 +44,9 @@ async function handler(
         userId: 7,
         createdAt: "2025-01-26T08:24:50.545z",
         updatedAt: "2025-01-26T08:24:50.546z",
+        _count: {
+          favs: 5,
+        },
       },
       productId: 1,
       createdAt: "2025-01-26T08:24:50.545z",
@@ -58,6 +69,9 @@ async function handler(
         userId: 7,
         createdAt: "2025-01-26T08:24:50.545z",
         updatedAt: "2025-01-26T08:24:50.546z",
+        _count: {
+          favs: 5,
+        },
       },
       productId: 1,
       createdAt: "2025-01-26T08:24:50.545z",
