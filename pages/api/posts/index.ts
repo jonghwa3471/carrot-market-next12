@@ -45,7 +45,7 @@ async function handler(
     } = req;
     const parsedLatitude = parseFloat(latitude?.toString()!);
     const parsedLongitude = parseFloat(longitude?.toString()!);
-    const posts = await client.post.findMany({
+    /*     const posts = await client.post.findMany({
       include: {
         user: {
           select: {
@@ -71,12 +71,14 @@ async function handler(
           lte: parsedLongitude + 0.01,
         },
       },
-    });
+    }); */
     const posts = [
       {
         id: 1,
         createdAt: "2022-01-26T08:24:50.545z",
         updatedAt: "2022-01-26T08:24:50.546z",
+        latitude: 35.964036540679764,
+        longitude: 126.71687550586978,
         user: {
           id: 4,
           name: "userName",
@@ -93,6 +95,8 @@ async function handler(
         id: 2,
         createdAt: "2022-01-26T08:24:50.545z",
         updatedAt: "2022-01-26T08:24:50.546z",
+        latitude: 35.964036540679764,
+        longitude: 126.71687550586978,
         user: {
           id: 4,
           name: "userName",
@@ -109,6 +113,8 @@ async function handler(
         id: 3,
         createdAt: "2022-01-26T08:24:50.545z",
         updatedAt: "2022-01-26T08:24:50.546z",
+        latitude: 35.964036540679764,
+        longitude: 126.71687550586978,
         user: {
           id: 4,
           name: "userName",
@@ -125,6 +131,8 @@ async function handler(
         id: 4,
         createdAt: "2022-01-26T08:24:50.545z",
         updatedAt: "2022-01-26T08:24:50.546z",
+        latitude: 36.964036540679764,
+        longitude: 127.71687550586978,
         user: {
           id: 4,
           name: "userName",
