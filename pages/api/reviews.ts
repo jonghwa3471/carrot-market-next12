@@ -61,7 +61,7 @@ async function handler(
       },
       createdForId: +user?.id!,
       review: "This is the review 2",
-      score: 4,
+      score: 2,
     },
   ];
   res.json({
