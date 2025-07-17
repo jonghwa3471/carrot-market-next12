@@ -32,6 +32,7 @@ interface MessageForm {
 }
 
 const Stream: NextPage = () => {
+  // const scrollRef = useRef<HTMLDivElement>(null);
   const { user } = useUser();
   const router = useRouter();
   const { register, handleSubmit, reset } = useForm<MessageForm>();
@@ -52,6 +53,10 @@ const Stream: NextPage = () => {
       mutate();
     }
   }, [sendMessageData, mutate]);
+  // 새로고침 시 scrollRef가 참조하고 있는 HTML element 위치로 scroll해준다.
+  /* useEffect(() => {
+    scrollRef.current?.scrollIntoView();
+  }); */
   return (
     <Layout canGoBack>
       <div className="space-y-4 px-4 py-10">
@@ -75,6 +80,7 @@ const Stream: NextPage = () => {
                 reversed={message.user.id === user?.id}
               />
             ))}
+            {/* <div ref={scrollRef} /> */}
           </div>
           <div className="fixed inset-x-0 bottom-0 bg-white py-2">
             <form
