@@ -26,6 +26,7 @@ const EditProfile: NextPage = () => {
     setValue,
     handleSubmit,
     setError,
+    clearErrors,
     formState: { errors },
   } = useForm<EditProfileForm>();
   useEffect(() => {
@@ -44,6 +45,11 @@ const EditProfile: NextPage = () => {
     }
     editProfile({ email, phone, name });
   };
+  const onChange = () => {
+    if (errors.formErrors?.message) {
+      clearErrors("formErrors");
+    }
+  };
   useEffect(() => {
     if (data && !data.ok) {
       setError("formErrors", {
@@ -53,7 +59,11 @@ const EditProfile: NextPage = () => {
   }, [data, setError]);
   return (
     <Layout canGoBack title="Edit Profile">
-      <form onSubmit={handleSubmit(onValid)} className="space-y-4 px-4 py-10">
+      <form
+        onChange={onChange}
+        onSubmit={handleSubmit(onValid)}
+        className="space-y-4 px-4 py-10"
+      >
         <div className="flex items-center space-x-3">
           <div className="h-14 w-14 rounded-full bg-slate-500" />
           <label
