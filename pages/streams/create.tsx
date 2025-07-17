@@ -49,6 +49,7 @@ const Create: NextPage = () => {
         <Input
           register={register("price", {
             required: true,
+            valueAsNumber: true,
           })}
           required
           label="Price"
