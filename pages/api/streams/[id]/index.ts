@@ -16,6 +16,20 @@ async function handler(
       where: {
         id: +id,
       },
+      include: {
+        messages: {
+          select: {
+            id: true,
+            message: true,
+            user: {
+              select: {
+                avatar: true,
+                id: true,
+              },
+            },
+          },
+        },
+      },
     }); */
     const stream = {
       id: 5,
@@ -25,6 +39,32 @@ async function handler(
       description: "brand new",
       price: 220,
       userId: user?.id,
+      messages: [
+        {
+          id: 11,
+          message: "Hi how much are you selling them for?",
+          user: {
+            avatar: "avatarUrl",
+            id: 78,
+          },
+        },
+        {
+          id: 21,
+          message: "I want ￦20,000",
+          user: {
+            avatar: "avatarUrl",
+            id: 12345,
+          },
+        },
+        {
+          id: 31,
+          message: "미쳤어",
+          user: {
+            avatar: "avatarUrl",
+            id: 78,
+          },
+        },
+      ],
     };
     res.json({
       ok: true,

@@ -7,37 +7,39 @@ async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseType>,
 ) {
+  const {
+    body: { email, phone, name },
+    session: { user },
+  } = req;
   if (req.method === "GET") {
     /* const profile = await client.user.findUnique({
     where: {
       id: req.session.user?.id,
     },
   }); */
-    res.json({
-      ok: true,
-      profile: {
-        id: 9,
-        phone: "12345",
-        email: null,
-        name: "Anonymous",
-        avatar: null,
-        createdAt: "2022-01-26T08:24:50.545z",
-        updatedAt: "2022-01-26T08:24:50.546z",
-      },
-    });
+    if (user?.id) {
+      res.json({
+        ok: true,
+        profile: {
+          id: +user?.id,
+          phone: "12345",
+          email: null,
+          name: "Anonymous",
+          avatar: null,
+          createdAt: "2022-01-26T08:24:50.545z",
+          updatedAt: "2022-01-26T08:24:50.546z",
+        },
+      });
+    }
   }
   if (req.method === "POST") {
-    const {
-      body: { email, phone, name },
-      session: { user },
-    } = req;
     /*     const currentUser = await client.user.findUnique({
       where: {
         id: user?.id,
       },
     }); */
     const currentUser = {
-      id: 9,
+      id: user?.id,
       phone: "12345",
       email: null,
       name: "Anonymous",
