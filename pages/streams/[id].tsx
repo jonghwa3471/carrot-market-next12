@@ -38,6 +38,9 @@ const Stream: NextPage = () => {
   const { register, handleSubmit, reset } = useForm<MessageForm>();
   const { data, mutate } = useSWR<StreamResponse>(
     router.query.id ? `/api/streams/${router.query.id}` : null,
+    {
+      refreshInterval: 1000,
+    },
   );
   const [sendMessage, { loading, data: sendMessageData }] = useMutation(
     `/api/streams/${router.query.id}/messages`,
@@ -45,14 +48,24 @@ const Stream: NextPage = () => {
   const onValid = (form: MessageForm) => {
     if (loading) return;
     reset();
+    mutate(
+      (prev) =>
+        prev &&
+        ({
+          ...prev,
+          stream: {
+            ...prev.stream,
+            messages: [
+              ...prev.stream.messages,
+              { id: Date.now(), message: form.message, user: { ...user } },
+            ],
+          },
+        } as any),
+      false,
+    );
     sendMessage(form);
   };
-  useEffect(() => {
-    if (sendMessageData && sendMessageData.ok) {
-      console.log("I'm gonna refresh!!");
-      mutate();
-    }
-  }, [sendMessageData, mutate]);
+
   // 새로고침 시 scrollRef가 참조하고 있는 HTML element 위치로 scroll해준다.
   /* useEffect(() => {
     scrollRef.current?.scrollIntoView();
