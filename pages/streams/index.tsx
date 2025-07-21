@@ -4,6 +4,7 @@ import FloatingButton from "@components/floating-button";
 import Layout from "@components/layout";
 import { Stream } from "@prisma/client";
 import useSWR from "swr";
+import { streamArr } from "prisma/seed";
 
 interface StreamsResponse {
   ok: boolean;
@@ -15,7 +16,7 @@ const Streams: NextPage = () => {
   return (
     <Layout hasTabBar title="라이브">
       <div className="space-y-4 divide-y-[1px]">
-        {data?.streams.map((stream) => (
+        {streamArr.map((stream) => (
           <Link key={stream.id} href={`/streams/${stream.id}`}>
             <a className="block px-4 pt-4">
               <div className="aspect-video w-full rounded-md bg-slate-300 shadow-sm" />
