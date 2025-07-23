@@ -8,7 +8,7 @@ async function handler(
   res: NextApiResponse<ResponseType>,
 ) {
   const {
-    body: { email, phone, name },
+    body: { email, phone, name, avatarId },
     session: { user },
   } = req;
   if (req.method === "GET") {
@@ -112,6 +112,16 @@ async function handler(
           name,
         },
       }); */
+    }
+    if (avatarId) {
+      await client.user.update({
+        where: {
+          id: user?.id,
+        },
+        data: {
+          avatar: avatarId,
+        },
+      });
     }
     res.json({ ok: true });
   }
