@@ -58,7 +58,6 @@ const EditProfile: NextPage = () => {
           body: form,
         })
       ).json();
-      return;
       editProfile({ email, phone, name, avatarId: id });
     } else {
       editProfile({ email, phone, name });
