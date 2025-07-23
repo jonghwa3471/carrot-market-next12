@@ -45,9 +45,14 @@ const EditProfile: NextPage = () => {
         message: "Email OR Phone number are required. You need to choose one.",
       });
     }
-    if (avatar && avatar.length > 0) {
-      const cloudFlareRequest = await (await fetch(`/api/files`)).json();
-      console.log(cloudFlareRequest);
+    if (avatar && avatar.length > 0 && user) {
+      const { id, uploadURL } = await (await fetch(`/api/files`)).json();
+      const form = new FormData();
+      form.append("name", avatar[0], String(user.id));
+      await fetch(uploadURL, {
+        method: "POST",
+        body: form,
+      });
       return;
       editProfile({ email, phone, name /* avatarUrl */ });
     } else {
