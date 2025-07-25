@@ -58,7 +58,7 @@ const Home: NextPage = () => {
           </svg>
         </FloatingButton>
       </div>
-      <Image src={avicii} placeholder="blur" quality={10} />
+      <Image src={avicii} alt="avicii" placeholder="blur" quality={10} />
     </Layout>
   );
 };
