@@ -82,6 +82,17 @@ const Stream: NextPage = () => {
             ${data?.stream?.price}
           </span>
           <p className="my-6 text-gray-700">{data?.stream?.description}</p>
+          <div className="flex flex-col space-y-3 overflow-auto rounded-md bg-orange-300 p-5">
+            <span>Stream keys: (secret)</span>
+            <span className="text-gray-600">
+              <span className="font-medium text-gray-800">URL</span>:
+              {data?.stream.cloudflareUrl}
+            </span>
+            <span className="text-gray-600">
+              <span className="font-medium text-gray-800">Key</span>:
+              {data?.stream.cloudflareKey}
+            </span>
+          </div>
         </div>
         <div>
           <h2 className="text-2xl font-bold text-gray-900">Live Chat</h2>
