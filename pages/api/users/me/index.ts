@@ -114,14 +114,14 @@ async function handler(
       }); */
     }
     if (avatarId) {
-      await client.user.update({
+      /*       await client.user.update({
         where: {
           id: user?.id,
         },
         data: {
           avatar: avatarId,
         },
-      });
+      }); */
     }
     res.json({ ok: true });
   }
