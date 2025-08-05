@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Button from "@components/button";
 import Input from "@components/input";
 import { cls } from "@libs/client/utils";
@@ -10,7 +10,20 @@ import useUser from "@libs/client/useUser";
 import dynamic from "next/dynamic";
 // import Bs from "@components/bs";
 
-const Bs = dynamic(() => import("@components/bs"), { ssr: false });
+/* const Bs = dynamic(
+  () =>
+    new Promise((resolve) =>
+      setTimeout(() => resolve(import("@components/bs")), 10000),
+    ),
+  { ssr: false, loading: () => <span>Loading a big component 4u.</span> },
+); */
+const Bs = dynamic(
+  () =>
+    new Promise((resolve) =>
+      setTimeout(() => resolve(import("@components/bs")), 10000),
+    ),
+  { ssr: false, suspense: true },
+);
 
 interface EnterForm {
   email?: string;
@@ -51,15 +64,11 @@ const Enter: NextPage = () => {
     confirmToken(validForm);
   };
   const router = useRouter();
-  const { user } = useUser();
   useEffect(() => {
     if (tokenData?.ok) {
       router.push("/");
     }
-    if (user) {
-      router.push("/");
-    }
-  }, [tokenData, router, user]);
+  }, [tokenData, router]);
 
   return (
     <div className="mt-16 px-4">
@@ -129,7 +138,9 @@ const Enter: NextPage = () => {
               ) : null}
               {method === "phone" ? (
                 <>
-                  <Bs hello={true} />
+                  <Suspense fallback="Loading...">
+                    <Bs hello={true} />
+                  </Suspense>
                   <Input
                     register={register("phone")}
                     name="phone"
