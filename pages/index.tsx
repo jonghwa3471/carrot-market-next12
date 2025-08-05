@@ -8,6 +8,7 @@ import useSWR from "swr";
 import { Product } from "@prisma/client";
 import Image from "next/image";
 import avicii from "../public/Avicii_img.jpeg";
+import client from "@libs/server/client";
 
 export interface ProductWithCount extends Product {
   _count: {
@@ -20,23 +21,23 @@ interface ProductsResponse {
   products: ProductWithCount[];
 }
 
-const Home: NextPage = () => {
+const Home: NextPage<{ products: ProductWithCount[] }> = ({ products }) => {
   const { user, isLoading } = useUser();
-  const { data } = useSWR<ProductsResponse>("/api/products");
+  // const { data } = useSWR<ProductsResponse>("/api/products");
   return (
     <Layout title="홈" hasTabBar>
       <Head>
         <title>Home</title>
       </Head>
       <div className="flex flex-col space-y-5 divide-y">
-        {data?.products?.map((product) => (
+        {products?.map((product) => (
           <Item
             id={product.id}
             key={product.id}
             title={product.name}
             price={product.price}
             comments={1}
-            hearts={product._count.favs}
+            hearts={product._count?.favs}
           />
         ))}
         <FloatingButton href="/products/upload">
@@ -61,5 +62,59 @@ const Home: NextPage = () => {
     </Layout>
   );
 };
+
+export async function getServerSideProps() {
+  // const products = await client.product.findMany({});
+  const products = [
+    {
+      id: 1,
+      name: "상품1",
+      price: "100",
+      description: "상품 예시111",
+      image: "xx",
+      createdAt: "2025-01-26T08:24:50.545z",
+      updatedAt: "2025-01-26T08:24:50.546z",
+      user: {
+        id: 19,
+        phone: "12345",
+        email: null,
+        name: "Anonymous",
+        avatar: null,
+        createdAt: "2022-01-26T08:24:50.545z",
+        updatedAt: "2022-01-26T08:24:50.546z",
+      },
+      _count: {
+        favs: 7,
+      },
+    },
+    {
+      id: 2,
+      name: "상품2",
+      price: "200",
+      description: "상품 예시222",
+      image: "xx",
+      createdAt: "2025-01-26T08:24:50.545z",
+      updatedAt: "2025-01-26T08:24:50.546z",
+      user: {
+        id: 20,
+        phone: "null",
+        email: "whdghk3471@naver.com",
+        name: "Anonymous",
+        avatar: null,
+        createdAt: "2022-01-26T08:24:50.545z",
+        updatedAt: "2022-01-26T08:24:50.546z",
+      },
+      _count: {
+        favs: 12,
+      },
+    },
+  ];
+
+  return {
+    props: {
+      products,
+    },
+  };
+}
 
 export default Home;
