@@ -18,6 +18,7 @@ import dynamic from "next/dynamic";
   { ssr: false, loading: () => <span>Loading a big component 4u.</span> },
 ); */
 const Bs = dynamic(
+  //@ts-ignore
   () =>
     new Promise((resolve) =>
       setTimeout(() => resolve(import("@components/bs")), 10000),
@@ -139,7 +140,7 @@ const Enter: NextPage = () => {
               {method === "phone" ? (
                 <>
                   <Suspense fallback="Loading...">
-                    <Bs hello={true} />
+                    <Bs />
                   </Suspense>
                   <Input
                     register={register("phone")}
