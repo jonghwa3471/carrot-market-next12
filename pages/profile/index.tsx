@@ -1,10 +1,12 @@
-import type { NextPage } from "next";
+import type { NextPage, NextPageContext } from "next";
 import Link from "next/link";
 import Layout from "@components/layout";
 import useUser from "@libs/client/useUser";
-import useSWR from "swr";
+import useSWR, { SWRConfig } from "swr";
 import { Review, User } from "@prisma/client";
 import { cls } from "@libs/client/utils";
+import client from "@libs/server/client";
+import { withSsrSession } from "@libs/server/withSession";
 
 interface ReviewWithUser extends Review {
   createdBy: User;
@@ -148,4 +150,84 @@ const Profile: NextPage = () => {
   );
 };
 
-export default Profile;
+const Page: NextPage<{ profile: User }> = ({ profile }) => {
+  return (
+    <SWRConfig
+      value={{
+        fallback: {
+          "/api/users/me": {
+            ok: true,
+            profile,
+          },
+        },
+      }}
+    >
+      <Profile />
+    </SWRConfig>
+  );
+};
+
+export const getServerSideProps = withSsrSession(async function ({
+  req,
+}: NextPageContext) {
+  /*   const profile = await client.user.findUnique({
+    where: {
+      id: req?.session.user?.id,
+    },
+  }); */
+  const profile = {
+    id: req?.session.user?.id,
+    phone: "12345",
+    email: null,
+    name: "Anonymous",
+    avatar: null,
+    createdAt: "2022-01-26T08:24:50.545z",
+    updatedAt: "2022-01-26T08:24:50.546z",
+  };
+  // const reviews = await client.review.findMany({});
+  /*   const reviews = [
+    {
+      id: 1,
+      createdAt: "2022-01-26T08:24:50.545z",
+      updatedAt: "2022-01-26T08:24:50.546z",
+      createdBy: {
+        id: 1123,
+        name: "Jonghyeon",
+        avatar: "avatarUrl",
+      },
+      createdById: 4,
+      createdFor: {
+        id: +user?.id!,
+        name: "Anonymous",
+        avatar: "avatarUrl",
+      },
+      createdForId: +user?.id!,
+      review: "This is the review 1",
+      score: 4,
+    },
+    {
+      id: 2,
+      createdAt: "2022-01-26T08:24:50.545z",
+      updatedAt: "2022-01-26T08:24:50.546z",
+      createdBy: {
+        id: 1234,
+        name: "Taehyeon",
+        avatar: "avatarUrl",
+      },
+      createdById: 2,
+      createdFor: {
+        id: +user?.id!,
+        name: "Anonymous",
+        avatar: "avatarUrl",
+      },
+      createdForId: +user?.id!,
+      review: "This is the review 2",
+      score: 2,
+    },
+  ]; */
+  return {
+    props: { profile },
+  };
+});
+
+export default Page;
