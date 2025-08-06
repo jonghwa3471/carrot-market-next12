@@ -22,14 +22,14 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Script
         src="https://developers.kakao.com/sdk/js/kakao.js"
         onLoad={() => {
-          window.fbAsyncInit = function () {
+          /*           window.fbAsyncInit = function () {
             FB.init({
               appId: "your-app-id",
               autoLogAppEvents: true,
               xfbml: true,
               version: "v13.0",
             });
-          };
+          }; */
         }}
       />
     </SWRConfig>
