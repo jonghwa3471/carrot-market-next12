@@ -5,6 +5,7 @@ import Layout from "@components/layout";
 import useSWR from "swr";
 import { Post, User } from "@prisma/client";
 import useCoords from "@libs/client/useCoords";
+import client from "@libs/server/client";
 
 interface PostWithUser extends Post {
   user: User;
@@ -15,21 +16,20 @@ interface PostWithUser extends Post {
 }
 
 interface PostsResponse {
-  ok: boolean;
   posts: PostWithUser[];
 }
 
-const Community: NextPage = () => {
-  const { latitude, longitude } = useCoords();
+const Community: NextPage<PostsResponse> = ({ posts }) => {
+  /*   const { latitude, longitude } = useCoords();
   const { data } = useSWR<PostsResponse>(
     latitude && longitude
       ? `/api/posts?latitude=${latitude}&longitude=${longitude}`
       : null,
-  );
+  ); */
   return (
     <Layout hasTabBar title="동네생활">
       <div className="space-y-4 divide-y-[2px]">
-        {data?.posts.map((post) => (
+        {posts.map((post) => (
           <Link key={post.id} href={`/community/${post.id}`}>
             <a className="flex cursor-pointer flex-col items-start pt-4">
               <span className="ml-4 flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800">
@@ -59,7 +59,7 @@ const Community: NextPage = () => {
                       d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                     ></path>
                   </svg>
-                  <span>궁금해요 {post._count.wondering}</span>
+                  <span>궁금해요 {post._count?.wondering}</span>
                 </span>
                 <span className="flex items-center space-x-2 text-sm">
                   <svg
@@ -76,7 +76,7 @@ const Community: NextPage = () => {
                       d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                     ></path>
                   </svg>
-                  <span>답변 {post._count.answers}</span>
+                  <span>답변 {post._count?.answers}</span>
                 </span>
               </div>
             </a>
@@ -102,5 +102,93 @@ const Community: NextPage = () => {
     </Layout>
   );
 };
+
+export async function getStaticProps() {
+  /* const posts = await client.post.findMany({
+    include: {
+      user: true,
+    },
+  }); */
+  const posts = [
+    {
+      id: 1,
+      createdAt: "2022-01-26T08:24:50.545z",
+      updatedAt: "2022-01-26T08:24:50.546z",
+      latitude: 35.964036540679764,
+      longitude: 126.71687550586978,
+      user: {
+        id: 4,
+        name: "userName",
+        avatar: "",
+      },
+      userId: 123123,
+      question: "Question1",
+      _count: {
+        wondering: 7,
+        answers: 2,
+      },
+    },
+    {
+      id: 2,
+      createdAt: "2022-01-26T08:24:50.545z",
+      updatedAt: "2022-01-26T08:24:50.546z",
+      latitude: 35.964036540679764,
+      longitude: 126.71687550586978,
+      user: {
+        id: 4,
+        name: "userName",
+        avatar: "",
+      },
+      userId: 234,
+      question: "Question2",
+      _count: {
+        wondering: 7,
+        answers: 2,
+      },
+    },
+    {
+      id: 3,
+      createdAt: "2022-01-26T08:24:50.545z",
+      updatedAt: "2022-01-26T08:24:50.546z",
+      latitude: 35.964036540679764,
+      longitude: 126.71687550586978,
+      user: {
+        id: 4,
+        name: "userName",
+        avatar: "",
+      },
+      userId: 5345,
+      question: "Question3",
+      _count: {
+        wondering: 7,
+        answers: 2,
+      },
+    },
+    {
+      id: 4,
+      createdAt: "2022-01-26T08:24:50.545z",
+      updatedAt: "2022-01-26T08:24:50.546z",
+      latitude: 36.964036540679764,
+      longitude: 127.71687550586978,
+      user: {
+        id: 4,
+        name: "userName",
+        avatar: "",
+      },
+      userId: 45645645,
+      question: "Question4",
+      _count: {
+        wondering: 7,
+        answers: 2,
+      },
+    },
+  ];
+  return {
+    props: {
+      posts: JSON.parse(JSON.stringify(posts)),
+    },
+    revalidate: 5,
+  };
+}
 
 export default Community;
