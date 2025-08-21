@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Button from "@components/button";
 import Layout from "@components/layout";
 import { useRouter } from "next/router";
@@ -9,6 +9,7 @@ import useMutation from "@libs/client/useMutation";
 import { cls } from "@libs/client/utils";
 import useUser from "@libs/client/useUser";
 import Image from "next/image";
+import client from "@libs/server/client";
 
 interface ProductWithUser extends Product {
   user: User;
@@ -21,7 +22,11 @@ interface ItemDetailResponse {
   isLiked: boolean;
 }
 
-const ItemDetail: NextPage = () => {
+const ItemDetail: NextPage<ItemDetailResponse> = ({
+  product,
+  relatedProducts,
+  isLiked,
+}) => {
   const { user, isLoading } = useUser();
   const router = useRouter();
   const { mutate } = useSWRConfig();
@@ -51,9 +56,9 @@ const ItemDetail: NextPage = () => {
             /> */}
             <div>
               <p className="text-sm font-medium text-gray-700">
-                {data?.product?.user?.name}
+                {product?.user?.name}
               </p>
-              <Link href={`/users/profiles/${data?.product?.user?.id}`}>
+              <Link href={`/users/profiles/${product?.user?.id}`}>
                 <a className="text-xs font-medium text-gray-500">
                   View profile &rarr;
                 </a>
@@ -62,24 +67,24 @@ const ItemDetail: NextPage = () => {
           </div>
           <div className="mt-5">
             <h1 className="text-3xl font-bold text-gray-900">
-              {data?.product?.name}
+              {product?.name}
             </h1>
             <span className="mt-3 block text-2xl text-gray-900">
-              ${data?.product?.price}
+              ${product?.price}
             </span>
-            <p className="my-6 text-gray-700">{data?.product?.description}</p>
+            <p className="my-6 text-gray-700">{product?.description}</p>
             <div className="flex items-center justify-between space-x-2">
               <Button large text="Talk to seller" />
               <button
                 onClick={onFavClick}
                 className={cls(
                   "flex items-center justify-center rounded-md p-3 hover:bg-gray-100",
-                  data?.isLiked
+                  isLiked
                     ? "text-red-500 hover:text-red-600"
                     : "text-gray-400 hover:text-gray-500",
                 )}
               >
-                {data?.isLiked ? (
+                {isLiked ? (
                   <svg
                     className="h-6 w-6"
                     fill="currentColor"
@@ -113,7 +118,7 @@ const ItemDetail: NextPage = () => {
         <div>
           <h2 className="text-2xl font-bold text-gray-900">Similar items</h2>
           <div className="mt-6 grid grid-cols-2 gap-4">
-            {data?.relatedProducts?.map((product) => (
+            {relatedProducts?.map((product) => (
               <Link key={product.id} href={`/products/${product.id}`}>
                 <a>
                   <div>
@@ -131,6 +136,143 @@ const ItemDetail: NextPage = () => {
       </div>
     </Layout>
   );
+};
+
+export const getStaticPaths: GetStaticPaths = () => {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  if (!ctx?.params?.id) {
+    return {
+      props: {},
+    };
+  }
+  /*     const product = await client.product.findUnique({
+      where: {
+        id: +id,
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            avatar: true,
+          },
+        },
+      },
+    }); */
+  const product = {
+    id: +ctx.params.id,
+    name: `상품${ctx.params.id}`,
+    price: "100",
+    description: `상품 예시${ctx.params.id}`,
+    image: "xx",
+    createdAt: "2025-01-26T08:24:50.545z",
+    updatedAt: "2025-01-26T08:24:50.546z",
+    user: {
+      id: 2 * +ctx.params.id,
+      phone: "12345",
+      email: null,
+      name: "Anonymous",
+      avatar: null,
+      createdAt: "2022-01-26T08:24:50.545z",
+      updatedAt: "2022-01-26T08:24:50.546z",
+    },
+  };
+  const terms = product.name.split(" ").map((word) => ({
+    name: {
+      contains: word,
+    },
+  }));
+  /*     const relatedProducts = await client.product.findMany({
+      where: {
+        OR: terms,
+        AND: {
+          id: {
+            not: product?.id,
+          },
+        },
+      },
+    }); */
+  const relatedProducts = [
+    {
+      id: 3,
+      name: "상품3",
+      price: "300",
+      description: "상품 예시333",
+      image: "xx",
+      createdAt: "2025-01-26T08:24:50.545z",
+      updatedAt: "2025-01-26T08:24:50.546z",
+      user: {
+        id: 39,
+        phone: "1234567",
+        email: null,
+        name: "Anonymous",
+        avatar: null,
+        createdAt: "2022-01-26T08:24:50.545z",
+        updatedAt: "2022-01-26T08:24:50.546z",
+      },
+    },
+    {
+      id: 4,
+      name: "상품4",
+      price: "400",
+      description: "상품 예시444",
+      image: "xx",
+      createdAt: "2025-01-26T08:24:50.545z",
+      updatedAt: "2025-01-26T08:24:50.546z",
+      user: {
+        id: 49,
+        phone: "123456789",
+        email: null,
+        name: "Anonymous",
+        avatar: null,
+        createdAt: "2022-01-26T08:24:50.545z",
+        updatedAt: "2022-01-26T08:24:50.546z",
+      },
+    },
+    {
+      id: 5,
+      name: "상품5",
+      price: "300",
+      description: "상품 예시555",
+      image: "xx",
+      createdAt: "2025-01-26T08:24:50.545z",
+      updatedAt: "2025-01-26T08:24:50.546z",
+      user: {
+        id: 59,
+        phone: "123456712",
+        email: null,
+        name: "Anonymous",
+        avatar: null,
+        createdAt: "2022-01-26T08:24:50.545z",
+        updatedAt: "2022-01-26T08:24:50.546z",
+      },
+    },
+  ];
+  /*     const isLiked = Boolean(
+      await client.fav.findFirst({
+        where: {
+          productId: product?.id,
+          userId: user?.id,
+        },
+        select: {
+          id: true,
+        },
+      }),
+    ); */
+  const isLiked = false;
+  return {
+    props: {
+      product: JSON.parse(JSON.stringify(product)),
+      relatedProducts: JSON.parse(JSON.stringify(relatedProducts)),
+      isLiked,
+    },
+  };
 };
 
 export default ItemDetail;
