@@ -34,6 +34,9 @@ async function handler(
       latitude,
       longitude,
     };
+
+    await res.revalidate("/community");
+
     res.json({
       ok: true,
       post,
@@ -146,8 +149,6 @@ async function handler(
         },
       },
     ];
-
-    await res.revalidate("/community");
 
     res.json({
       ok: true,
