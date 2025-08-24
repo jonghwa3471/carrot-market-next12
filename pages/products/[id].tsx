@@ -40,6 +40,13 @@ const ItemDetail: NextPage<ItemDetailResponse> = ({
     // mutate("/api/users/me", (prev: any) => ({ ok: !prev.ok }), false);
     toggleFav({});
   };
+  if (router.isFallback) {
+    return (
+      <Layout title="Loading for you">
+        <span>I love you</span>
+      </Layout>
+    );
+  }
   return (
     <Layout canGoBack seoTitle="Product Detail">
       <div className="px-4 py-4">
@@ -141,7 +148,7 @@ const ItemDetail: NextPage<ItemDetailResponse> = ({
 export const getStaticPaths: GetStaticPaths = () => {
   return {
     paths: [],
-    fallback: "blocking",
+    fallback: true,
   };
 };
 
@@ -266,6 +273,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       }),
     ); */
   const isLiked = false;
+  await new Promise((resolve) => setTimeout(resolve, 10000));
   return {
     props: {
       product: JSON.parse(JSON.stringify(product)),
