@@ -1,7 +1,6 @@
-import Document, { Head, Html, Main, NextScript } from "next/document";
+import { Head, Html, Main, NextScript } from "next/document";
 
-class CustomDocument extends Document {
-  render(): JSX.Element {
+export default function MyDocument(){
     console.log("DOCUMENT IS RUNNING");
     return (
       <Html lang="ko">
@@ -18,6 +17,6 @@ class CustomDocument extends Document {
       </Html>
     );
   }
-}
 
-export default CustomDocument;
+
+
