@@ -9,7 +9,7 @@ interface ProfileResponse {
 }
 
 export default function useUser() {
-  const { data, error, mutate } = useSWR<ProfileResponse>("/api/users/me");
+  const { data, error, mutate } = useSWR<ProfileResponse>(typeof window === "undefined" ? null : "/api/users/me");
   const router = useRouter();
   useEffect(() => {
     if (data && !data.ok) {
